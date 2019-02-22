@@ -13,6 +13,7 @@ local widthOfRectangle = 350
 local heightOfRectangle = 200
 local areaOfRectangle
 
+
 -- set the background colour of the Ipad Air to white 
 display.setDefault("background", 204/255, 204/255, 1)
 
