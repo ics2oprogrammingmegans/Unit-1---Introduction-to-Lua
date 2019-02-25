@@ -13,8 +13,12 @@ local widthOfRectangle = 350
 local heightOfRectangle = 200
 local areaOfRectangle
 
+<<<<<<< HEAD
 
 -- set the background colour of the Ipad Air to white 
+=======
+-- set the background colour of the Ipad Air to light purple 
+>>>>>>> 3fcb08c8f1afb5f2af28fd3ebe53a6286c634e9f
 display.setDefault("background", 204/255, 204/255, 1)
 
 -- hide the status bar on the Ipad air 
@@ -39,7 +43,7 @@ myRectangle:setFillColor(1, 1, 51/255)
 myRectangle:setStrokeColor(1, 0, 0)
 
 
--- calculate the area using the area od a rectangle formula (area = lenght * width)
+-- calculate the area using the area of a rectangle formula (area = length * width)
 areaOfRectangle = widthOfRectangle * heightOfRectangle
 
 -- display the text on the screen to the user
