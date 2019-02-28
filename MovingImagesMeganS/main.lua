@@ -70,6 +70,7 @@ end
 
 -- flip the Octopus direction
 Octopus:scale (-1, 1)
+ 
 
 
 
