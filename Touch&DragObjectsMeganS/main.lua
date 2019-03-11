@@ -10,48 +10,52 @@
 
 display.setStatusBar(display.HiddenStatusBar)
 
--- Create the local variables for thi program
-
-local bunnyGirl
-local queenGirl
+-- Create the local variables for this program
 
 local backgroundImage = display.newImageRect("Images/background.png", 2048, 1536)
-local bunnyGirl = display.newImageRect("Images/bunnyGirl", 150, 150)
-local bunnyGirlWidth = bunnyGirl.width 
-local bunnyGirlHeight = bunnyGirl.height
+local yellowGirl = display.newImageRect("Images/yellowGirl.png", 150, 150)
+local yellowGirlWidth = 20
+local yellowGirlHeight = 50
 
-local queenGirl = display.newImageRect("Images/queenGirl", 150, 150)
-local queenGirlWidth = queenGirl.width
-local queenGirlHeight = queenGirl.height
+
+local blueGirl = display.newImageRect("Images/blueGirl.png", 150, 150)
+local blueGirlWidth = 20
+local blueGirlHeight = 50
 
 -- My boolean variables to keep track of which object I touched first
-local alreadyTouchedbunnyGirl = false
-local aldreayTouchedqueenGirl = false
+local alreadyTouchedyellowGirl = false
+local aldreayTouchedblueGirl = false
 
 -- Set the initial x and y poistion of myImage
-bunnyGirl.x = 400
-bunnyGirl.y = 500
+yellowGirl.x = 400
+yellowGirl.y = 500
 
-queenGirl.x = 300
-queenGirl.y = 200
-
--- Function: queenGirlListener
+blueGirl.x = 300
+blueGirl.y = 200
+--[[
+-- Function: blueGirlListener
 -- Input: touch listener
 -- Output: none
--- Description: when queen girl is touched, move her
-local function queenGirlListener(touch)
+-- Description: when blue girl is touched, move her
+local function BlueGirlListener(touch)
+
 	if (touch.phase == "began") then
-		if (alreadyTouchedbunnyGirl == false) then
-			alreadTouchedqueenGirl = true
+		if (alreadyTouchedYellowGirl == false) then
+			alreadTouchedBlueGirl = true
 		end
 	end
 
-	if  ( (touch.phase == "moved") and (alreadTouchedqueenGirl == true) ) then
-		
+	if  ( (touch.phase == "moved") and (alreadTouchedBlueGirl == true) ) then
+		blueGirl.x = 300
+		blueGirl.y = 200
+	end
 
+	if (touch.phase == "ended") then
+		alreadTouchedBlueGirl = false
+		alreadyTouchedYellowGirl = false
+    end
+end
 
-
-
-
-
-
+-- Add the respective listeners to each object
+blueGirl:addEventListener("touch", blueGirlListener)
+--]]--
