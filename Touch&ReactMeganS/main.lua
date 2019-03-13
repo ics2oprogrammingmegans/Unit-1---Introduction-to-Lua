@@ -6,7 +6,7 @@
 ----------------------------------------------------------------------------------------------
 
 -- Set background colour 
-local Background1 = display.setDefault ("background", 153/255, 204/255, 1)
+background = display.setDefault ("background", 153/255, 204/255, 1)
 
 --Hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
@@ -26,6 +26,9 @@ redButton.isVisible = false
 
 --Create a background once the button is clicked
 local backgroundImage = display.newImageRect("Images/Galaxy.png", 2048, 1536)
+backgroundImage.x = 0
+backgroundImage.y = 0
+backgroundImage.isVisible = false
 
 --Create a text object, and set its positio and make it invisible
 textObject = display.newText ("Clicked!", 0, 0, nil, 50)
@@ -34,34 +37,37 @@ textObject.y = display.contentHeight/3
 textObject:setTextColor (1, 1, 0)
 textObject.isVisible = false
 
+--Create the volleyball image
+local volleyball = display.newImageRect("Images/Volleyball.png", 150, 150)
+volleyball.x = display.contentWidth/7
+volleyball.y = display.contentHeight/3
+volleyball.isVisible = false
+
+correctBuzzer = audio.loadStream("Sounds/Correct Answer Sound Effect.mp3")
+
 --Function: BlueButtonListener
 --Input: touch listener
 --Output: none
 --Description: when blue button is clicked, it will make the text appear with the red button,
 -- and make the blue button disappear
-local function BlueButtonListener(touch)
-	if (touch.phase == "began") then
-		Background1.isVisible = false
-		backgroundImage.isVisible = true
-	end
-
-	if (touch.phase == "ended") then
-		Background1.isVisible = true
-		backgroundImage.isVisible = false
-	end
-end
 
 local function BlueButtonListener(touch)
 	if (touch.phase == "began") then
-		blueButton.isVisible = false
+		volleyball.isVisible = true
 		redButton.isVisible = true
+		blueButton.isVisible = false
 		textObject.isVisible = true
+		backgroundImage.isVisible = true
+		
+		channel = audio.play(correctBuzzer)
 	end
 
 	if (touch.phase == "ended") then
 		blueButton.isVisible = true
 		redButton.isVisible = false
 		textObject.isVisible = false
+		volleyball.isVisible = false
+		backgroundImage.isVisible = false		
 	end
 end
 
@@ -72,20 +78,27 @@ blueButton:addEventListener("touch", BlueButtonListener)
 --Function: RedButtonListener
 --Input: touch listener
 --Output: none
---Description: when red button is clicked, it will make the text appear with the blue button,
--- and make the red button disappear
+--Description: when red button is clicked, the blue button will appear
+-- and the red button and the "clicked!" text will disappear
 local function RedButtonListener(touch)
 	if (touch.phase == "began") then
 		redButton.isVisible = false
 		blueButton.isVisible = true
 		textObject.isVisible = false
+		volleyball.isVisible = false
+		backgroundImage.isVisible = false
+	
 	end
 
 	if (touch.phase == "ended") then
-		redButton.isVisible = false
-		blueButton.isVisible = true
-		textObject.isVisible = false
-	end
+		backgroundImage.isVisible = true
+		redButton.isVisible = true
+		blueButton.isVisible = false
+		textObject.isVisible = true
+		volleyball.isVisible = true
+		
+	end 
+	
 end
 
 --Add the respective linteners to each object 
