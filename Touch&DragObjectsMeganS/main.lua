@@ -1,143 +1,78 @@
 -----------------------------------------------------------------------------------------
--- Title: TouchAndDrag
+-- Title: MovingObjects
 -- Name: Megan.S
--- Course: ICS2O Programming
--- This program will show an image, and the user can drag and drop the image on the
--- iPad Air
+-- Course: ICS2O
+-- This program moves a beetleship across the screen and then makes it fade out.
+-- I added another object that moves in a 
+-- Different dircertion as well as a background
+-- Image
 -----------------------------------------------------------------------------------------
 
--- Hide the status bar on the iPad Air
-
+-- hide the status bar on the iPad Air
 display.setStatusBar(display.HiddenStatusBar)
 
--- Create the local variables for this program
+-- global variables 
+scrollSpeedBettleShip = 3
 
-local backgroundImage = display.newImageRect("YBimages/background.png", 2048, 1536)
+-- add a background image with width and height 
+local backgroundImage = display.newImageRect("Images/background.png", 2048, 1536)
 
-local yellowGirl = display.newImageRect("YBimages/yellowGirl.png", 150, 150)
-local yellowGirlWidth = 30
-local yellowGirlHeight = 50
+-- character image with width and height
+local beetleship = display.newImageRect("Images/beetleship.png", 200, 200)
 
+-- set the image to be transparent
+beetleship.alpha = 0
 
-local blueGirl = display.newImageRect("YBimages/blueGirl.png", 150, 150)
-local blueGirlWidth = 30
-local blueGirlHeight = 50
+-- set the initail x and y position of the beetleship
+beetleship.x = 0
+beetleship.y = display.contentHeight/3
 
-local greyGirl = display.newImageRect("YBimages/greyGirl.png", 150, 150)
-local greyGirlWidth = 30
-local greyGirlHeight = 50
-
--- My boolean variables to keep track of which object I touched first
-local alreadyTouchedyellowGirl = false
-local alreadyTouchedblueGirl = false
-local alreadyTouchedgreyGirl = false
-
--- Create the sounds once each object is touched
-local correctSound = audio.loadSound( "Sounds/correctSound/mp3" ) -- This is setting a variable to an mp3 file
-local correctSoundChannel
-
--- Set the initial x and y poistion of myImage
-
-yellowGirl.x = 400
-yellowGirl.y = 500
-
-blueGirl.x = 300
-blueGirl.y = 200
-
-greyGirl.x = 600
-greyGirl.y = 300
-
--- Function: blueGirlListener
--- Input: touch listener
--- Output: none
--- Description: when blue girl is touched, move her
-
-local function blueGirlListener(touch)
-
-	if (touch.phase == "began") then
-		if(alreadyTouchedgreyGirl == false) then
-			if (alreadyTouchedyellowGirl == false) then
-				alreadyTouchedblueGirl = true
-			end
-		end
-	end
-
-	if  ( (touch.phase == "moved") and (alreadyTouchedblueGirl == true) ) then
-		blueGirl.x = touch.x
-		blueGirl.y = touch.y
-	end
-
-	if (touch.phase == "ended") then
-		alreadyTouchedblueGirl = false
-		alreadyTouchedyellowGirl = false
-		alreadyTouchedgreyGirl = false
-    end
+-- Function: Moveship
+-- Input: this function accepts an event listener 
+-- output: none 
+-- Description: This function adds the scroll speed to the x-value of the ship
+local function Moveship(event)
+	-- add the scroll speed to the x-value of the ship
+	beetleship.x = beetleship.x + scrollSpeedBettleShip
+	-- change the transparency of the ship every time it moves so that it fades out
+	beetleship.alpha = beetleship.alpha + 0.01
 end
+-- MoveShip will be called over and over again
+Runtime:addEventListener("enterFrame", Moveship)
 
--- Add an event listener to blueGirl
-blueGirl:addEventListener("touch", blueGirlListener)
+-----------------------------------------------------------------------
 
--- Function: yellowGirlListener
--- Input: touch listener
+-- add a scroll speed to the octopus and move it from right to left 
+scrollSpeedOctopus = -4
+
+-- add the character image with the width and height of the octopus
+Octopus = display.newImageRect("Images/octopus.png", 300, 300)
+
+--set the octopus image to be transparent
+Octopus.alpha = 1
+
+-- set the initail x and y position of the octopus
+Octopus.x = 1024
+Octopus.y = display.contentHeight/2
+
+-- Function: MoveOctopus
+-- Input: This function accepts an event listener
 -- Output: none
--- Description: when yellow girl is touched, move her
-
-local function yellowGirlListener(touch)
-
-	if (touch.phase == "began") then
-		if(alreadyTouchedgreyGirl == false) then
-			if (alreadyTouchedblueGirl == false) then
-				alreadyTouchedyellowGirl = true
-			end
-		end
-	end
-
-	if ( (touch.phase == "moved") and (alreadyTouchedyellowGirl == true) ) then
-		yellowGirl.x = touch.x
-		yellowGirl.y = touch.y
-	end
-
-	if (touch.phase == "ended") then 
-		alreadyTouchedyellowGirl = false
-		alreadyTouchedblueGirl = false
-		alreadyTouchedgreyGirl = false
-
-		-- if the user touches the yellowGirl, and sound will play for 2 seconds
-		correctSoundChannel = audio.play(correctSound)
-		
-	end
+-- Descriptions: This function adds the scroll speed to the x-value of the octopus
+local function MoveOctopus(event)
+	-- add the scroll speed to the x-value of the octopus
+	Octopus.x = Octopus.x + scrollSpeedOctopus
+	-- change the transparency of the octopus every time it moves so that it fades in
+	Octopus.alpha = Octopus.alpha - 0.001
 end
+ -- MoveOctopus will be called over and over again
+ Runtime:addEventListener("enterFrame", MoveOctopus)
+
+-- flip the Octopus direction
+Octopus:scale (-1, 1)
  
--- Add an even listener to yellowGirl
-yellowGirl:addEventListener("touch", yellowGirlListener) 
 
--- Function: greyGirlListener
--- Input: touch listener
--- Output: none
--- Description: when grey girl is touched, move her
 
-local function greyGirlListener(touch) 
 
-	if (touch.phase == "began") then
-		if (alreadyTouchedblueGirl == false) then
-			if (alreadyTouchedyellowGirl == false) then
-				alreadyTouchedgreyGirl = true
-			end
-		end
-	end
 
-	if ( (touch.phase == "moved") and (alreadyTouchedgreyGirl == true) ) then
-		greyGirl.x = touch.x
-		greyGirl.y = touch.y
-	end
-
-	if (touch.phase == "ended") then
-		alreadyTouchedgreyGirl = false
-		alreadyTouchedyellowGirl = false
-		alreadyTouchedblueGirl = false
-	end
-end
-
--- Add an event listener to greyGirl
-greyGirl:addEventListener("touch", greyGirlListener)
 
