@@ -34,6 +34,9 @@ local correctAnswer
 local textIntro
 local points = 0
 
+--Add the local variables for the sound
+local correstSound = audio.loadSound( "Sounds/correctSound.mp3" )
+local correctSoundChannel
 
 --Create the local functions
 
@@ -101,10 +104,11 @@ local function NumericFieldListener( event )
 			correctObject.isVisible = true
 			timer.performWithDelay(3000, HideCorrect)
 
+			correctSoundChannel = audio.play(correstSound)
+
 		elseif ( userAnswer ~= correctAnswer ) then
 			incorrectObject.isVisible = true
 			timer.performWithDelay(3000, HideIncorrect)
-
 		
 		end
 	end
