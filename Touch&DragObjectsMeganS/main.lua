@@ -32,6 +32,10 @@ local alreadyTouchedyellowGirl = false
 local alreadyTouchedblueGirl = false
 local alreadyTouchedgreyGirl = false
 
+-- Create the sounds once each object is touched
+local correctSound = audio.loadSound( "Sounds/correctSound/mp3" ) -- This is setting a variable to an mp3 file
+local correctSoundChannel
+
 -- Set the initial x and y poistion of myImage
 
 yellowGirl.x = 400
@@ -97,6 +101,10 @@ local function yellowGirlListener(touch)
 		alreadyTouchedyellowGirl = false
 		alreadyTouchedblueGirl = false
 		alreadyTouchedgreyGirl = false
+
+		-- if the user touches the yellowGirl, and sound will play for 2 seconds
+		correctSoundChannel = audio.play(correctSound)
+		
 	end
 end
  
