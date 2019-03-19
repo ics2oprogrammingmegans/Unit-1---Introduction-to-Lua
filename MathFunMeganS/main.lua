@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
--- Title: NumericTextFields
+-- Title: MathFun
 -- Name: Megan.S
 -- Course: ICS2O
--- This program will ask the user either an addition or subtraction question, and the program will
--- caculate the user's answer and display an image.
+-- This program will add the eztra functions such as divison and multiplication, and it will round the number 0.5 and above
+-- up and below 0.5 will round down
 -----------------------------------------------------------------------------------------
 
 --Hide the status bar
@@ -13,14 +13,14 @@ display.setStatusBar(display.HiddenStatusBar)
 display.setDefault("background", 1, 1, 204/255)
 
 --Create the pictures for the green check mark and the red cross
-local correctCheckMark = display.newImageRect("Images/checkmark.png", 200, 70)
-correctCheckMark.x = display.contentWidth/3
-correctCheckMark.y = display.contentHeight/3
+local correctCheckMark = display.newImageRect("Images/checkmark.png", 200, 125 )
+correctCheckMark.x = display.contentWidth/2
+correctCheckMark.y = display.contentHeight*7/10
 correctCheckMark.isVisible = false
 
-local wrongRedCross = display.newImageRect("Images/red_x.png", 200, 70 )
-wrongRedCross.x = display.contentWidth/3
-wrongRedCross.y = display.contentHeight/3
+local wrongRedCross = display.newImageRect("Images/red_x.png", 195, 130 )
+wrongRedCross.x = display.contentWidth/2
+wrongRedCross.y = display.contentHeight*7/10
 wrongRedCross.isVisible = false
 
 --------------------------------------------------------------------------------
@@ -70,6 +70,13 @@ local function AskQuestion()
 
 		--Create the question in the text object
 		questionObject.text = randomNumber1 .. " * " .. randomNumber2 .. " = "
+
+	else 
+
+		correctAnswer = randomNumber1 / randomNumber2 * 100
+
+		--Create the question in the text object
+		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
 	end
 
 end
@@ -84,6 +91,16 @@ local function HideIncorrect()
 	incorrectObject.isVisible = false
 	AskQuestion()
 end	
+
+local function HideWrongRedCross()
+	wrongRedCross.isVisible = false
+	AskQuestion()
+end
+
+local function HideCorrectCheckark()
+	correctCheckMark.isVisible = false
+	AskQuestion()
+end
 
 local function NumericFieldListener( event )
 	
@@ -107,6 +124,7 @@ local function NumericFieldListener( event )
 			correctCheckMark.isVisible = true
 			wrongRedCross.isVisible = false
 			timer.performWithDelay(3000, HideCorrect)
+			timer.performWithDelay(3000, HideCorrectCheckark)
 
 			correctSoundChannel = audio.play(correstSound)
 
@@ -115,7 +133,7 @@ local function NumericFieldListener( event )
 			wrongRedCross.isVisible = true
 			correctCheckMark.isVisible = false
 			timer.performWithDelay(3000, HideIncorrect)
-		
+			timer.performWithDelay(3000, HideWrongRedCross)
 		end
 	end
 end
@@ -129,12 +147,12 @@ pointsObject = display.newText("Points: " .. points, display.contentWidth*4/5, d
 pointsObject:setTextColor(0, 0, 0)
 
 --Create the correct text object and make it invisible 
-correctObject = display.newText("Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 70 )
+correctObject = display.newText("Correct!", display.contentWidth/2, display.contentHeight*3/10, nil, 70 )
 correctObject:setTextColor(155/255, 42/255, 198/255)
 correctObject.isVisible = false
 
 --Create the incorrect text object and make it invisible 
-incorrectObject = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 70 )
+incorrectObject = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*3/10, nil, 70 )
 incorrectObject:setTextColor(102/255, 178/255, 1)
 incorrectObject.isVisible = false
 
