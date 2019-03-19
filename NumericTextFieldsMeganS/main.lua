@@ -13,7 +13,7 @@ display.setStatusBar(display.HiddenStatusBar)
 display.setDefault("background", 1, 1, 204/255)
 
 --Create the pictures for the green check mark and the red cross
-local correcrCheckMark = display.newImageRect("Images1/checkmark.png", 200, 70 )
+local correctCheckMark = display.newImageRect("Images1/checkmark.png", 200, 70 )
 correcrCheckMark.x = display.contentWidth/2
 correcrCheckMark.y = display.contentHeight/2
 correcrCheckMark.isVisible = false
@@ -23,7 +23,9 @@ wrongRedCross.x = display.contentWidth/3
 wrongRedCross.y = display.contentHeight/3
 wrongRedCross.isVisible = false
 
---Create the local variables
+--------------------------------------------------------------------------------
+-- Create the local variables --
+---------------------------------------------------------------------------------
 local questionObject
 local correctObject
 local numericField
@@ -38,13 +40,14 @@ local points = 0
 local correstSound = audio.loadSound( "Sounds/correctSound.mp3" )
 local correctSoundChannel
 
---Create the local functions
-
+---------------------------------------------------------------
+-- Create the local functions --
+------------------------------------------------------------------
 local function AskQuestion()
 	-- generate 2 random numbers between a max. and a min. number
 	randomNumber1 = math.random(10, 20)
 	randomNumber2 = math.random(10, 20)
-	randomNumber3 = math.random(1, 3)
+	randomNumber3 = math.random(1, 4)
 	numericField.text = ""
 
 	if (randomNumber3 == 1) then
@@ -61,13 +64,19 @@ local function AskQuestion()
 		--Create the question in the text object
 		questionObject.text = randomNumber1 .. " - " .. randomNumber2 .. " = "
 
-	else 
+	elseif ( randomNumber3 == 3 ) then
 
 		correctAnswer = randomNumber1 * randomNumber2
 
 		--Create the question in the text object
 		questionObject.text = randomNumber1 .. " * " .. randomNumber2 .. " = "
 
+	else 
+
+		correctAnswer = randomNumber1  / randomNumber2 
+
+		--Create the question in the text object
+		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
 	end
 
 end
@@ -102,12 +111,14 @@ local function NumericFieldListener( event )
 			points = points + 1
 			pointsObject.text = "Points: " .. points
 			correctObject.isVisible = true
+			correctCheckMark.is = true
 			timer.performWithDelay(3000, HideCorrect)
 
 			correctSoundChannel = audio.play(correstSound)
 
 		elseif ( userAnswer ~= correctAnswer ) then
 			incorrectObject.isVisible = true
+			wrongRedCross.isVisible = true
 			timer.performWithDelay(3000, HideIncorrect)
 		
 		end
@@ -140,9 +151,9 @@ numericField.inputType = "number"
 --Add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener )
 
-
---Function calls
-
+------------------------------------------------------------------------------
+-- Function calls --
+------------------------------------------------------------------------------
 --Call the function to ask the question
 AskQuestion()
 
