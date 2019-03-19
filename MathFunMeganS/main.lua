@@ -37,7 +37,7 @@ local textIntro
 local points = 0
 
 --Add the local variables for the sound
-local correstSound = audio.loadSound( "Sounds/correctSound.mp3" )
+local correctSound = audio.loadSound( "Sounds/correctSound.mp3" )
 local correctSoundChannel
 
 ---------------------------------------------------------------
@@ -73,7 +73,7 @@ local function AskQuestion()
 
 	else 
 
-		correctAnswer = randomNumber1 / randomNumber2 * 100
+		correctAnswer = randomNumber1 / randomNumber2 
 
 		--Create the question in the text object
 		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
