@@ -46,7 +46,7 @@ local correctSoundChannel
 local function AskQuestion()
 	-- generate 2 random numbers between a max. and a min. number
 	randomNumber1 = math.random(10, 20)
-	randomNumber2 = math.random(10, 20)
+	randomNumber2 = math.random(0, 9)
 	randomNumber3 = math.random(1, 4)
 	numericField.text = ""
 
@@ -73,7 +73,7 @@ local function AskQuestion()
 
 	else 
 
-		correctAnswer = randomNumber1 / randomNumber2 
+		correctAnswer = math.round(randomNumber1 / randomNumber2 * 100 / 100)
 
 		--Create the question in the text object
 		questionObject.text = randomNumber1 .. " / " .. randomNumber2 .. " = "
@@ -158,7 +158,7 @@ incorrectObject.isVisible = false
 
 --Create numeric field
 numericField = native.newTextField( display.contentWidth*2/3, display.contentHeight/2, 200, 80 )
-numericField.inputType = "number"
+numericField.inputType = "decimal"
 
 --Add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener )

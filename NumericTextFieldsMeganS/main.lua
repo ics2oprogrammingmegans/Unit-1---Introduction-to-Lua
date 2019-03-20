@@ -37,8 +37,10 @@ local textIntro
 local points = 0
 
 --Add the local variables for the sound
-local correstSound = audio.loadSound( "Sounds/correctSound.mp3" )
+local correctSound = audio.loadSound( "Sounds/correctSound.mp3" )
 local correctSoundChannel
+local incorrectSound = audio.loadSound( "Sounds/incorrectSound.mp3" )
+local incorrectSoundChannel
 
 ---------------------------------------------------------------
 -- Create the local functions --
@@ -108,13 +110,15 @@ local function NumericFieldListener( event )
 			wrongRedCross.isVisible = false
 			timer.performWithDelay(3000, HideCorrect)
 
-			correctSoundChannel = audio.play(correstSound)
+			correctSoundChannel = audio.play(correctSound)
 
 		elseif ( userAnswer ~= correctAnswer ) then
 			incorrectObject.isVisible = true
 			wrongRedCross.isVisible = true
 			correctCheckMark.isVisible = false
 			timer.performWithDelay(3000, HideIncorrect)
+
+			incorrectSoundChannel = audio.play(incorrectSound)
 		
 		end
 	end
