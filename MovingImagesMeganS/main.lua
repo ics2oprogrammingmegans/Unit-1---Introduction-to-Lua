@@ -20,6 +20,11 @@ local backgroundImage = display.newImageRect("Images/background.png", 2048, 1536
 -- character image with width and height
 local beetleship = display.newImageRect("Images/beetleship.png", 200, 200)
 
+-- create a sound for the bettleship
+local popSound = audio.loadStream("Sounds/PopSound.wav")
+local popSoundChannel
+
+
 -- set the image to be transparent
 beetleship.alpha = 0
 
@@ -36,10 +41,15 @@ local function Moveship(event)
 	beetleship.x = beetleship.x + scrollSpeedBettleShip
 	-- change the transparency of the ship every time it moves so that it fades out
 	beetleship.alpha = beetleship.alpha + 0.01
+	-- make the pop sound play when the beetleship is moving
+	popSoundChannel = audio.play(popSound)
 end
+
 -- MoveShip will be called over and over again
 Runtime:addEventListener("enterFrame", Moveship)
 
+-----------------------------------------------------------------------
+-- OCTOPUS --
 -----------------------------------------------------------------------
 
 -- add a scroll speed to the octopus and move it from right to left 
@@ -59,6 +69,7 @@ Octopus.y = display.contentHeight/2
 -- Input: This function accepts an event listener
 -- Output: none
 -- Descriptions: This function adds the scroll speed to the x-value of the octopus
+
 local function MoveOctopus(event)
 	-- add the scroll speed to the x-value of the octopus
 	Octopus.x = Octopus.x + scrollSpeedOctopus

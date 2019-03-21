@@ -86,7 +86,20 @@ local function yellowGirlListener(touch)
 		end
 	end	
 	
-	if ( (touch))
+	if ( (touch.phase == "moved") and (alreadyTouchedyellowGirl == true) ) then
+		yellowGirl.x = touch.x
+		yellowGirl.y = touch.y 
+	end
+
+	if (touch.phase == "ended") then
+		alreadyTouchedyellowGirl = false
+		alreadyTouchedblueGirl = false
+		alreadyTouchedgreyGirl = false
+	end
+end
+
+-- Add an even listener to yellowGirl
+
 
 
 

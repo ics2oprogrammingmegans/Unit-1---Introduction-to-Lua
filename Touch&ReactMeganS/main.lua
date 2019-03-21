@@ -43,7 +43,8 @@ volleyball.x = display.contentWidth/7
 volleyball.y = display.contentHeight/3
 volleyball.isVisible = false
 
-correctBuzzer = audio.loadStream("Sounds/Correct Answer Sound Effect.mp3")
+local correctBuzzer = audio.loadStream("Sounds/Correct Answer Sound Effect.mp3")
+local correctBuzzerChannel
 
 --Function: BlueButtonListener
 --Input: touch listener
@@ -59,7 +60,7 @@ local function BlueButtonListener(touch)
 		textObject.isVisible = true
 		backgroundImage.isVisible = true
 		
-		channel = audio.play(correctBuzzer)
+		correctBuzzerchannel = audio.play(correctBuzzer)
 	end
 
 	if (touch.phase == "ended") then
