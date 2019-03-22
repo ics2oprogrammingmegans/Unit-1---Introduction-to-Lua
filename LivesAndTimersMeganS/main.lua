@@ -176,6 +176,7 @@ incorrectObject = display.newText( display.contentWidth/3, display.contentHeight
 incorrectObject.isVisible = false
 
 --Set the text colour of the countDownTimer to be light purple
+countDownTimer:setTextColor( 204/255, 204/255, 1 )
 
 
 ------------------------------------------------------------------------------
