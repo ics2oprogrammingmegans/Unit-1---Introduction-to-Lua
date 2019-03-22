@@ -1,10 +1,9 @@
------------------------------------------------------------------------------------------
--- Title: LivesAndTimers
+------------------------------------------------------------------------------------------
+-- Lives and Timers
 -- Name: Megan.S
 -- Course: ICS2O
--- This program will add on the function of a timer and lives to the Math Fun program
--- if the user gets the question wrong then he or she will lose a life, and each question will
--- have a timer of 10 to 15 seconds
+-- This program will ask the user either an addition or subtraction question, and the program will
+-- caculate the user's answer and display an image.
 -----------------------------------------------------------------------------------------
 
 --Hide the status bar
@@ -14,14 +13,14 @@ display.setStatusBar(display.HiddenStatusBar)
 display.setDefault("background", 1, 1, 204/255)
 
 --Create the pictures for the green check mark and the red cross
-local correctCheckMark = display.newImageRect("Images/checkmark.png", 200, 125 )
-correctCheckMark.x = display.contentWidth/2
-correctCheckMark.y = display.contentHeight*7/10
+local correctCheckMark = display.newImageRect("Images/checkmark.png", 200, 70)
+correctCheckMark.x = display.contentWidth/3
+correctCheckMark.y = display.contentHeight/3
 correctCheckMark.isVisible = false
 
-local wrongRedCross = display.newImageRect("Images/red_x.png", 195, 130 )
-wrongRedCross.x = display.contentWidth/2
-wrongRedCross.y = display.contentHeight*7/10
+local wrongRedCross = display.newImageRect("Images/red_x.png", 200, 70 )
+wrongRedCross.x = display.contentWidth/3
+wrongRedCross.y = display.contentHeight/3
 wrongRedCross.isVisible = false
 
 --------------------------------------------------------------------------------
@@ -40,32 +39,32 @@ local points = 0
 --Add the local variables for the sound
 local correctSound = audio.loadSound( "Sounds/correctSound.mp3" )
 local correctSoundChannel
+local incorrectSound = audio.loadSound( "Sounds/incorrectSound.mp3" )
+local incorrectSoundChannel
 
--- Add the local variablesw for the rtimer
-local totalSeconds = 5
-local secondsLeft
+--Create the local variables for the timer
+local totalSeconds = 15
+local secondsLeft = 15
 local clockText 
 local countDownTimer
 
-local lives = 3
+--Create the variables for the hearts
+local lives = 5
 local heart1
 local heart2
+local heart3
+local heart4
 
 
+--Create local variables for the incorrect and correct object
+local incorrectObject 
 ---------------------------------------------------------------
 -- Create the local functions --
 ------------------------------------------------------------------
-
-local function UpdateTime()
-	
-	--decrement the number of seconds
-	secondsLeft = 
-end
-
 local function AskQuestion()
 	-- generate 2 random numbers between a max. and a min. number
 	randomNumber1 = math.random(10, 20)
-	randomNumber2 = math.random(0, 9)
+	randomNumber2 = math.random(10, 20)
 	randomNumber3 = math.random(1, 4)
 	numericField.text = ""
 
@@ -107,19 +106,9 @@ local function HideCorrect()
 end	
 
 local function HideIncorrect()
-	incorrectObject.isVisible = false
+	incorrectText.isVisible = false
 	AskQuestion()
 end	
-
-local function HideWrongRedCross()
-	wrongRedCross.isVisible = false
-	AskQuestion()
-end
-
-local function HideCorrectCheckark()
-	correctCheckMark.isVisible = false
-	AskQuestion()
-end
 
 local function NumericFieldListener( event )
 	
@@ -143,16 +132,17 @@ local function NumericFieldListener( event )
 			correctCheckMark.isVisible = true
 			wrongRedCross.isVisible = false
 			timer.performWithDelay(3000, HideCorrect)
-			timer.performWithDelay(3000, HideCorrectCheckark)
 
-			correctSoundChannel = audio.play(correstSound)
+			correctSoundChannel = audio.play(correctSound)
 
 		elseif ( userAnswer ~= correctAnswer ) then
-			incorrectObject.isVisible = true
+			incorrectText.isVisible = true
 			wrongRedCross.isVisible = true
 			correctCheckMark.isVisible = false
 			timer.performWithDelay(3000, HideIncorrect)
-			timer.performWithDelay(3000, HideWrongRedCross)
+
+			incorrectSoundChannel = audio.play(incorrectSound)
+		
 		end
 	end
 end
@@ -166,29 +156,33 @@ pointsObject = display.newText("Points: " .. points, display.contentWidth*4/5, d
 pointsObject:setTextColor(0, 0, 0)
 
 --Create the correct text object and make it invisible 
-correctObject = display.newText("Correct!", display.contentWidth/2, display.contentHeight*3/10, nil, 70 )
+correctObject = display.newText("Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 70 )
 correctObject:setTextColor(155/255, 42/255, 198/255)
 correctObject.isVisible = false
 
 --Create the incorrect text object and make it invisible 
-incorrectObject = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*3/10, nil, 70 )
-incorrectObject:setTextColor(102/255, 178/255, 1)
-incorrectObject.isVisible = false
+incorrectText = display.newText("Incorrect!", display.contentWidth/2, display.contentHeight*2/3, nil, 70 )
+incorrectText:setTextColor(102/255, 178/255, 1)
+incorrectText.isVisible = false
 
 --Create numeric field
 numericField = native.newTextField( display.contentWidth*2/3, display.contentHeight/2, 200, 80 )
-numericField.inputType = "decimal"
+numericField.inputType = "number"
 
 --Add the event listener for the numeric field
 numericField:addEventListener( "userInput", NumericFieldListener )
+
+incorrectObject = display.newText( display.contentWidth/3, display.contentHeight*2/3, nil, 70 )
+incorrectObject.isVisible = false
+
+--Set the text colour of the countDownTimer to be light purple
+
 
 ------------------------------------------------------------------------------
 -- Function calls --
 ------------------------------------------------------------------------------
 --Call the function to ask the question
 AskQuestion()
-
-
 
 
 
