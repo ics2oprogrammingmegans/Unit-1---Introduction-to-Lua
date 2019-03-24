@@ -8,6 +8,12 @@
 -- Set background colour 
 background = display.setDefault ("background", 153/255, 204/255, 1)
 
+--Create a background once the button is clicked
+local backgroundImage = display.newImageRect("Images/Galaxy.png", 2048, 1536)
+backgroundImage.x = 0
+backgroundImage.y = 0
+backgroundImage.isVisible = false
+
 --Hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
 
@@ -23,12 +29,6 @@ local redButton = display.newImageRect("Images/Fast Button Active@2x.png",198, 9
 redButton.x = display.contentWidth/2
 redButton.y = display.contentHeight/2
 redButton.isVisible = false
-
---Create a background once the button is clicked
-local backgroundImage = display.newImageRect("Images/Galaxy.png", 2048, 1536)
-backgroundImage.x = 0
-backgroundImage.y = 0
-backgroundImage.isVisible = false
 
 --Create a text object, and set its positio and make it invisible
 textObject = display.newText ("Clicked!", 0, 0, nil, 50)

@@ -53,7 +53,7 @@ Runtime:addEventListener("enterFrame", Moveship)
 -----------------------------------------------------------------------
 
 -- add a scroll speed to the octopus and move it from right to left 
-scrollSpeedOctopus = -4
+scrollSpeedOctopus = - 4
 
 -- add the character image with the width and height of the octopus
 Octopus = display.newImageRect("Images/octopus.png", 300, 300)
