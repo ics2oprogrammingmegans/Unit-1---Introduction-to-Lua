@@ -3,7 +3,7 @@
 -- Name: Megan.S
 -- Course: ICS2O
 -- This program will ask the user either an addition or subtraction question, and the program will
--- caculate the user's answer and display an image.
+-- calculate the user's answer and display an image.
 -----------------------------------------------------------------------------------------
 
 --Hide the status bar
@@ -79,11 +79,14 @@ end
 
 local function HideCorrect()
 	correctObject.isVisible = false
+	correctCheckMark.isVisible = false
+
 	AskQuestion()
 end	
 
 local function HideIncorrect()
 	incorrectObject.isVisible = false
+	wrongRedCross.isVisible = false
 	AskQuestion()
 end	
 
