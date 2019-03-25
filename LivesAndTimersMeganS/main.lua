@@ -21,7 +21,7 @@ correctCheckMark.isVisible = false
 local wrongRedCross = display.newImageRect("Images/red_x.png", 200, 150 )
 wrongRedCross.x = display.contentWidth/2
 wrongRedCross.y = display.contentHeight*7/10
-wrongRedCross.isVisible = false
+wrongRedCross.isVisible = false 
 
 --------------------------------------------------------------------------------
 -- Create the local variables --
@@ -51,7 +51,7 @@ local clockText
 local countDownTimer
 
 --Create the variables for the hearts
-local lives = 4
+local lives = 3
 local heart1
 local heart2
 local heart3
@@ -97,6 +97,7 @@ local function AskQuestion()
 
 end
 
+
 local function UpdateTime()
 
 	--Dcrement the number of seconds
@@ -130,14 +131,20 @@ local function UpdateTime()
 		else (lives == 3 ) 
 
 			heart3.isVisible = false
-
 			countDownTimer.isVisible = false
 			gameOverObject.isVisible = true
 			AskQuestion()
+
 		end
 	end
 end
 
+-- Function that calls the timer
+local function StartTImer()
+
+	-- Create a countdown timer that loops infinitely
+	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0 )
+end
 
 local function HideCorrect()
 	correctText.isVisible = false
@@ -177,7 +184,6 @@ local function NumericFieldListener( event )
 			correctSoundChannel = audio.play(correctSound)
 
 		elseif ( userAnswer ~= correctAnswer ) then
-			heart1 = false
 			incorrectText.isVisible = true
 			wrongRedCross.isVisible = true
 			correctCheckMark.isVisible = false
@@ -189,20 +195,9 @@ local function NumericFieldListener( event )
 	end
 end
 
---Create the lives to display on the screen
-heart1 = display.newImageRect("Images/heart.png", 100, 100)
-heart1.x = display.contentWidth * 7 / 8
-heart1.y = display.contentHeight * 1 / 7
-
-heart2 = display.newImageRect("Images/heart.png", 100, 100)
-heart2.x = display.contentWidth * 6 / 8
-heart2.y = display.contentHeight * 1 / 7
-
-heart3 = display.newImageRect("Images/heart.png", 100, 100)
-heart3.x = display.contentWidth * 5 / 8
-heart3.y = display.contentHeight * 1 / 7
-
-
+---------------------------------------------------------
+-- Create the images/texts --
+---------------------------------------------------------
 --Displays a question and sets the colour
 questionObject = display.newText( "", display.contentWidth/3, display.contentHeight/2, nil, 70 )
 questionObject:setTextColor(155/255, 42/255, 198/255)
@@ -227,15 +222,22 @@ numericField.inputType = "number"
 --Add the event listener for the numeric field
 numericField:addEventListener("userInput", NumericFieldListener)
 
-
 --Create the game over image 
 gameOverObject = display.newImageRect("Images/gameOver.png", 1536, 2048)
 gameOverObject.isVisible = false 
 
---[[
---Set the text colour of the countDownTimer to be light purple
-countDownTimer:setTextColor( 204/255, 204/255, 1 )
---]]
+--Create the lives to display on the screen
+heart1 = display.newImageRect("Images/heart.png", 100, 100)
+heart1.x = display.contentWidth * 7 / 8 
+heart1.y = display.contentHeight * 1 / 7
+
+heart2 = display.newImageRect("Images/heart.png", 100, 100)
+heart2.x = display.contentWidth * 6 / 8
+heart2.y = display.contentHeight * 1 / 7
+
+heart3 = display.newImageRect("Images/heart.png", 100, 100)
+heart3.x = display.contentWidth * 5 / 8
+heart3.y = display.contentHeight * 1 / 7
 
 ------------------------------------------------------------------------------
 -- Function calls --
