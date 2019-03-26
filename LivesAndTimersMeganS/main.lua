@@ -96,7 +96,7 @@ local function AskQuestion()
 	end
 
 end
-
+--[[
 
 local function UpdateTime()
 
@@ -138,6 +138,7 @@ local function UpdateTime()
 		end
 	end
 end
+--]]
 
 -- Function that calls the timer
 local function StartTImer()
