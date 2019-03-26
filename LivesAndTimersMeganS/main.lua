@@ -115,7 +115,7 @@ local function UpdateTime()
 		-- and cancel the timer remove the third heart by making it invisible
 		if (lives == 1) then
 
-			heart1.isVisible = false
+			heart3.isVisible = false
 			countDownTimer.isVisible = true
 			gameOverObject.isVisible = false
 
@@ -130,7 +130,7 @@ local function UpdateTime()
 
 		else (lives == 3 ) 
 
-			heart3.isVisible = false
+			heart1.isVisible = false
 			countDownTimer.isVisible = false
 			gameOverObject.isVisible = true
 			AskQuestion()
