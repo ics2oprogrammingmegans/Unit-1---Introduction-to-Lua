@@ -100,7 +100,7 @@ end
 
 local function UpdateTime()
 
-	--Dcrement the number of seconds
+	--Decrement the number of seconds
 	secondsLeft = secondsLeft - 1
 
 	--Display the number of seconds left in the clock object 
@@ -111,7 +111,7 @@ local function UpdateTime()
 		secondsLeft = totalSeconds
 		lives = lives - 1
 
-		-- If there is no lives left, play a lose sound, show a you lose image
+		-- If there are no lives left, play a lose sound, show a you lose image
 		-- and cancel the timer remove the third heart by making it invisible
 		if (lives == 1) then
 
@@ -120,15 +120,17 @@ local function UpdateTime()
 			gameOverObject.isVisible = false
 
 			AskQuestion()
+		end
 
-		elseif (lives == 2) then
+		if (lives == 2) then
 
 			heart2.isVisible = false
 			countDownTimer.isVisible = true
 			gameOverObject.isVisible = false
 			AskQuestion()
+		end
 
-		else (lives == 3 ) 
+		if (lives == 3 ) then
 
 			heart1.isVisible = false
 			countDownTimer.isVisible = false
@@ -139,10 +141,11 @@ local function UpdateTime()
 	end
 end
 
--- Function that calls the timer
-local function StartTImer()
 
-	-- Create a countdown timer that loops infinitely
+--Function that calls the timer
+local function StartTimer()
+
+	--Create a countdown timer that loops infinitely
 	countDownTimer = timer.performWithDelay( 1000, UpdateTime, 0 )
 end
 
@@ -184,13 +187,13 @@ local function NumericFieldListener( event )
 			correctSoundChannel = audio.play(correctSound)
 
 		elseif ( userAnswer ~= correctAnswer ) then
+			lives = lives - 1
 			incorrectText.isVisible = true
 			wrongRedCross.isVisible = true
 			correctCheckMark.isVisible = false
 			timer.performWithDelay(3000, HideIncorrect)
 
 			incorrectSoundChannel = audio.play(incorrectSound)
-		
 		end
 	end
 end
@@ -244,3 +247,4 @@ heart3.y = display.contentHeight * 1 / 7
 ------------------------------------------------------------------------------
 --Call the function to ask the question
 AskQuestion()
+StartTimer()
