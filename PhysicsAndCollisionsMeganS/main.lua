@@ -45,4 +45,83 @@ beam:rotate(45)
 -- Send it to the back layer 
 beam:toBack()
 
--- Add to 
+-- Add to physics
+	physics.addBody(beam, "static", {friction-0.5, bounce-0.3})
+
+-- Create background
+local background = display.newImage("physics/background.png", 0, 0)
+
+	-- Set the x and y position
+	background.x = display.contentCenterX
+	background.y = display.contentCenterY
+
+	background = display.contentWidth/768
+	background = display.contentHeight/1024
+
+	-- Senf to the back 
+	background:toBack()
+
+
+
+------------------------------------------------
+-- FUNCTIONS --
+------------------------------------------------
+
+-- Create the first ball
+local function firstBall()
+	-- Creating the first ball
+	local ball1 = display.newImage("Physics/super_ball.png", 0, 0)
+
+	-- Add to physics
+	physics.addBody(ball1, {density=1.0, friction=0.5, bounce=0.3, radius=25})
+end
+
+
+------------------------------------------------
+
+local function secondBall()
+
+-- Create the second ball
+	local ball2 = display.newImage("Physics/super_ball.png", 0, 0)
+
+	-- Add to physics
+	physics.addBody(ball2, {density=1.0, friction=0.5, bounce=0.3, radius=12.5})
+
+	object:scale(0.5, 0.5)
+end
+
+
+------------------------------------------------
+-- TIMER DELAYS --
+------------------------------------------------
+timer.performwithDelay( 0, firstBall)
+timer.performwithDelay( 500, secondBall)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -47,8 +47,8 @@ local gameOverSound = audio.loadSound("Sounds/gameOverSound.wav")
 local gameOverSoundChannel
 
 -- Create the local variables for the timer
-local totalSeconds = 15
-local secondsLeft = 15
+local totalSeconds = 10
+local secondsLeft = 10
 local clockText 
 local countDownTimer
 
@@ -115,11 +115,27 @@ local function UpdateTime()
 	if ( secondsLeft == 0 ) then
 		-- Reset the number of seconds left
 		secondsLeft = totalSeconds
+
 		lives = lives - 1
 
 		-- If there are no lives left, play a lose sound, show a you lose image
 		-- and cancel the timer remove the third heart by making it invisible
-		if (lives == 1) then
+
+		if (lives == 3) then
+
+			heart3.isVisible = false
+			gameOverObject.isVisible = false
+			AskQuestion()
+		end
+
+		if (lives == 2) then
+
+			heart2.isVisible = false
+			gameOverObject.isVisible = false
+			AskQuestion()
+		end
+
+		if (lives == 1 ) then
 
 			heart1.isVisible = false   
 			heart2.isVisible = false
@@ -132,20 +148,7 @@ local function UpdateTime()
 			heart3.isVisible = false
 			gameOverSoundChannel = audio.play(gameOverSound)
 			AskQuestion()
-		end
 
-		if (lives == 2) then
-
-			heart2.isVisible = false
-			gameOverObject.isVisible = false
-			AskQuestion()
-		end
-
-		if (lives == 3 ) then
-
-			heart3.isVisible = false
-			gameOverObject.isVisible = false
-			AskQuestion()
 			
 
 		end
