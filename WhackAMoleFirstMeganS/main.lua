@@ -36,9 +36,11 @@ local scoreObject = display.newText( "Score: ", display.contentWidth/7, display.
 
 scoreObject:setTextColor( 1, 1, 1 )
 
--- Create the sound for when the rabbit is touched
+-- Create the sound for when the rabbit is touched and create the background sound
 local PopSound = audio.loadSound ( "Sounds/PopSound.wav" )
 local PopSoundChannel
+local BackGroundSound = audio.loadSound( "Sounds/BackGroundSound.mp3" )
+local BackGroundSoundChannel
 -----------------------------------------------------------------------------------
 -- FUNCTIONS-- 
 -----------------------------------------------------------------------------------
@@ -54,7 +56,7 @@ function PopUpDelay()
 
 	rabbit.isVisible = true
 
-	timer.performWithDelay( 700, Hide )
+	timer.performWithDelay( 490, Hide )
 
 end
 
@@ -69,6 +71,8 @@ end
 
 -- This function starts the game
 function GameStart()
+
+	BackGroundSoundChannel = audio.play(BackGroundSound)
 
 	PopUpDelay()
 
