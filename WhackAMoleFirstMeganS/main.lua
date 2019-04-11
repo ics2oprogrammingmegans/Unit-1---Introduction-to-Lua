@@ -78,8 +78,6 @@ function GameStart()
 
 end
 
--- This function increments the score only if the rabbit is clicked. It then displays the 
--- new score
 function Whacked( event )
 
 	-- If touch phase just started 
